@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCIENTIA - VCV Shishu Vidyodaya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --navy-blue: #0a192f;
+            --navy-light: #112240;
+            --red: #e63946;
+            --red-hover: #c1121f;
+            --text-white: #e6f1ff;
+            --text-gray: #8892b0;
+            --border-color: rgba(230, 57, 70, 0.3);
+            --transition: all 0.3s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--navy-blue);
+            color: var(--text-white);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background-color: rgba(10, 25, 47, 0.95);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--red);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .school-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: left;
+        }
+
+        .nav-btn {
+            background-color: transparent;
+            border: 2px solid var(--red);
+            color: var(--red);
+            padding: 0.5rem 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            border-radius: 4px;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background-color: var(--red);
+            color: var(--text-white);
+            box-shadow: 0 0 15px rgba(230, 57, 70, 0.6);
+        }
+
+        /* --- Main Container --- */
+        main {
+            flex: 1;
+            position: relative;
+            width: 100%;
+        }
+
+        .page-section {
+            display: none; /* Hidden by default */
+            min-height: calc(100vh - 80px);
+            animation: fadeIn 0.6s ease forwards;
+            width: 100%;
+        }
+
+        .page-section.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- HOME SECTION --- */
+        #home-view {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, var(--navy-light) 0%, var(--navy-blue) 70%);
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .bg-decoration {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border: 1px solid rgba(230, 57, 70, 0.1);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-decoration::before {
+            content: '';
+            position: absolute;
+            top: -10%; left: -10%; right: -10%; bottom: -10%;
+            border-radius: 50%;
+            border: 1px dashed rgba(230, 57, 70, 0.2);
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--red);
+            position: relative;
+            margin-bottom: 1.5rem;
+            letter-spacing: 10px;
+            text-shadow: 0 0 20px rgba(230, 57, 70, 0.3);
+            animation: pulse 3s infinite;
+        }
+
+        .main-title span {
+            display: block;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 5px;
+            margin-top: 10px;
+            -webkit-text-stroke: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @keyframes pulse {
+            0%, 100% { text-shadow: 0 0 20px rgba(230, 57, 70, 0.3); }
+            50% { text-shadow: 0 0 40px rgba(230, 57, 70, 0.8); }
+        }
+
+        .event-info {
+            margin-top: 2rem;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem 2rem;
+            border-left: 4px solid var(--red);
+            border-radius: 0 8px 8px 0;
+            backdrop-filter: blur(5px);
+        }
+
+        .info-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-white);
+        }
+
+        /* --- PROGRAMS SECTION --- */
+        #programs-view {
+            padding: 2rem 1rem;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        /* Standard Tabs */
+        .standard-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .std-tab {
+            background: var(--navy-light);
+            color: var(--text-gray);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem 2rem;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .std-tab:hover, .std-tab.active {
+            background: var(--red);
+            color: var(--text-white);
+            border-color: var(--red);
+            transform: translateY(-2px);
+        }
+
+        .list-container {
+            width: 100%;
+            display: none; /* Hidden until a tab is selected */
+            animation: slideIn 0.4s ease;
+        }
+
+        .list-container.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .standard-header {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--red);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .programs-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .program-card {
+            background-color: var(--navy-light);
+            padding: 1.2rem 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: var(--red);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .program-card:hover {
+            transform: translateX(10px);
+            background-color: #172a45;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .program-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .program-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .arrow-icon {
+            color: var(--red);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* --- DETAIL VIEW (New Page) --- */
+        #detail-view {
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 1px solid var(--text-gray);
+            color: var(--text-gray);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .back-btn:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .detail-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--red);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+        }
+
+        .detail-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+            background-color: #000;
+        }
+
+        .project-img:hover {
+            border-color: var(--red);
+        }
+
+        .detail-content-block {
+            margin-bottom: 2rem;
+        }
+
+        .detail-subheading {
+            color: var(--red);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .detail-text {
+            color: #ccd6f6;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            white-space: pre-line;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .school-name { font-size: 0.9rem; }
+            .main-title { font-size: 3rem; -webkit-text-stroke: 1px var(--red); }
+            .detail-images { grid-template-columns: 1fr; }
+            .nav-btn { padding: 0.5rem 1rem; }
+            .std-tab { padding: 0.6rem 1rem; font-size: 0.8rem; }
+            .detail-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="school-name">
+            VCV Shishu Vidyodaya Matriculation Higher Secondary School
+        </div>
+        <nav>
+            <button id="nav-programs" class="nav-btn">Programs</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HOME SECTION -->
+        <section id="home-view" class="page-section active">
+            <div class="bg-decoration"></div>
+            <div class="hero-content">
+                <h1 class="main-title">
+                    SCIENTIA
+                    <span>Science Exhibition 2026</span>
+                </h1>
+                
+                <div class="event-info">
+                    <div class="info-box">
+                        <span class="info-label">Date</span>
+                        <span class="info-value">28.02.2026</span>
+                    </div>
+                    <div class="info-box">
+                        <span class="info-label">Time</span>
+                        <span class="info-value">8:30 am - 12:30 pm</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROGRAMS SECTION -->
+        <section id="programs-view" class="page-section">
+            <!-- Tabs for Standards -->
+            <div class="standard-tabs">
+                <div class="std-tab active" onclick="showStandard('11-A', this)">STANDARD 11-A</div>
+                <div class="std-tab" onclick="showStandard('11-B', this)">STANDARD 11-B</div>
+                <div class="std-tab" onclick="showStandard('11-C', this)">STANDARD 11-C</div>
+                <div class="std-tab" onclick="showStandard('11-A-1', this)">STANDARD 11-A 1</div>
+            </div>
+
+            <!-- Lists Container -->
+            <div id="list-11-A" class="list-container active">
+                <h2 class="standard-header">STANDARD 11-A</h2>
+                <div class="programs-list" id="container-11-A"></div>
+            </div>
+
+            <div id="list-11-B" class="list-container">
+                <h2 class="standard-header">STANDARD 11-B</h2>
+                <div class="programs-list" id="container-11-B"></div>
+            </div>
+
+            <div id="list-11-C" class="list-container">
+                <h2 class="standard-header">STANDARD 11-C</h2>
+                <div class="programs-list" id="container-11-C"></div>
+            </div>
+
+            <div id="list-11-A-1" class="list-container">
+                <h2 class="standard-header">STANDARD 11-A 1</h2>
+                <div class="programs-list" id="container-11-A-1"></div>
+            </div>
+        </section>
+
+        <!-- DETAIL SECTION (New Page) -->
+        <section id="detail-view" class="page-section">
+            <div class="detail-header">
+                <h2 class="detail-title" id="detail-title">Project Name</h2>
+            </div>
+
+            <div class="detail-images">
+                <img src="" alt="Project Image 1" class="project-img" id="detail-img-1">
+                <img src="" alt="Project Image 2" class="project-img" id="detail-img-2">
+            </div>
+            
+            <div class="detail-content-block">
+                <h3 class="detail-subheading">Explanation</h3>
+                <p class="detail-text" id="detail-exp">Description goes here.</p>
+            </div>
+
+            <div class="detail-content-block">
+                <h3 class="detail-subheading">How it Works</h3>
+                <p class="detail-text" id="detail-work">Working details go here.</p>
+            </div>
+
+            <div class="detail-content-block">
+                <h3 class="detail-subheading">Uses</h3>
+                <p class="detail-text" id="detail-uses">Uses go here.</p>
+            </div>
+
+            <button class="back-btn" onclick="goBackToPrograms()" style="margin-top: 2rem;">&#8592; Back to Programs</button>
+        </section>
+    </main>
+
+    <script>
+        // --- EXACT DATA WITH INDIVIDUAL IMAGE PLACEHOLDERS ---
+        const projectData = {
+            '11-A': [
+                { 
+                    name: "Amphibian Car", 
+                    img1: "car img.jpg", 
+                    img2: "car.img 2.jpg",
+                    exp: "An amphibian car is a vehicle that can travel on both land and water.\nIt works like a normal car on roads and like a boat in water.\nIt is specially designed with waterproof and floating features.", 
+                    work: "Has sealed body to prevent water entry.\n\nUses wheels for land movement.\n\nUses propellers or jet system in water.\n\nEngine power is switched between wheels and propeller.", 
+                    uses: "Rescue operations during floods.\n\nMilitary operations.\n\nTourism and water sports.\n\nTransportation in coastal areas." 
+                },
+                { 
+                    name: "Smart Dustbin (Wet/Dry)", 
+                    img1: "smart dustbin.webp", 
+                    img2: "smart dustbin 2.webp",
+                    exp: "A smart dustbin separates wet and dry waste automatically.\nIt helps in proper waste management.\nIt uses sensors to detect the type of waste.", 
+                    work: "Sensors detect moisture in waste.\n\nMicrocontroller processes the signal.\n\nMotor rotates the bin section.\n\nWaste falls into wet or dry compartment.", 
+                    uses: "Promotes recycling.\n\nKeeps surroundings clean.\n\nReduces manual waste sorting.\n\nUsed in smart cities." 
+                },
+                { 
+                    name: "Sleep Detector Glasses + Alcohol Detection", 
+                    img1: "sleep glasses detector.jpg", 
+                    img2: "sleep detector glasses 2.webp",
+                    exp: "These glasses detect drowsiness and alcohol levels.\nThey prevent accidents by alerting the user.\nMainly used by drivers.", 
+                    work: "Eye blink sensor detects sleep patterns.\n\nAlcohol sensor checks breath alcohol level.\n\nMicrocontroller analyzes data.\n\nAlarm vibrates or sounds alert.", 
+                    uses: "Prevents road accidents.\n\nUsed by truck drivers.\n\nIndustrial safety.\n\nNight driving safety." 
+                },
+                { 
+                    name: "Rain Detection (Clothes Protector)", 
+                    img1: "rain detection.jpg", 
+                    img2: "Rain Detection (Clothes Protector) 2.webp",
+                    exp: "This model protects clothes from rain automatically.\nIt detects rain and moves clothes to a safe area.\nUseful for homes.", 
+                    work: "Rain sensor detects water droplets.\n\nSignal sent to controller.\n\nMotor pulls clothes inside.\n\nStops when rain stops.", 
+                    uses: "Protects washed clothes.\n\nSaves time.\n\nAutomatic home system.\n\nUseful in rainy seasons." 
+                },
+                { 
+                    name: "Hydraulic Truck", 
+                    img1: "Hydraulic Truck.jpg", 
+                    img2: "Hydraulic Truck 2.webp",
+                    exp: "A hydraulic truck lifts heavy loads using fluid pressure.\nIt uses Pascal’s Law.\nCommon in construction.", 
+                    work: "Hydraulic fluid is pumped.\n\nPressure increases inside cylinder.\n\nPiston moves upward.\n\nLifts heavy load easily.", 
+                    uses: "Construction sites.\n\nGarbage trucks.\n\nTransport industries.\n\nLoading and unloading goods." 
+                },
+                { 
+                    name: "Rocket", 
+                    img1: "rocket.jpg", 
+                    img2: "Rocket 2.jpg",
+                    exp: "A rocket is a vehicle that travels into space.\nIt works on Newton’s Third Law.\nUsed for space exploration.", 
+                    work: "Fuel burns in combustion chamber.\n\nHigh-pressure gases produced.\n\nGases escape through nozzle.\n\nRocket moves upward due to thrust.", 
+                    uses: "Satellite launch.\n\nSpace research.\n\nMilitary defense.\n\nWeather monitoring." 
+                },
+                { 
+                    name: "Drone", 
+                    img1: "Drone.jpg", 
+                    img2: "Drone 2.jpg",
+                    exp: "A drone is an unmanned aerial vehicle.\nIt flies without a pilot onboard.\nControlled remotely.", 
+                    work: "Motors rotate propellers.\n\nBattery powers system.\n\nController sends signals.\n\nGPS stabilizes position.", 
+                    uses: "Aerial photography.\n\nAgriculture monitoring.\n\nDelivery services.\n\nSurveillance." 
+                },
+                { 
+                    name: "Breathing Monitor", 
+                    img1: "breath monitor.jpg", 
+                    img2: "Breathing monitor 2.jpg",
+                    exp: "A breathing monitor tracks respiration rate.\nIt detects abnormal breathing.\nUsed in hospitals.", 
+                    work: "Sensor detects chest movement.\n\nConverts movement to signals.\n\nMicrocontroller processes data.\n\nDisplays breathing rate.", 
+                    uses: "Patient monitoring.\n\nSleep study.\n\nInfant care.\n\nEmergency alerts." 
+                },
+                { 
+                    name: "Non-Stop Water and Anti-Gravity Structure", 
+                    img1: "Non-Stop Water and Anti-Gravity Structure.webp", 
+                    img2: "Non-Stop Water.png",
+                    exp: "This model shows continuous water flow using motor.\nAnti-gravity structure creates floating illusion.\nDemonstrates physics principles.", 
+                    work: "Hidden pump circulates water.\n\nWater flows in loop.\n\nStructure balances weight.\n\nCreates floating effect illusion.", 
+                    uses: "Science exhibitions.\n\nEducational demonstration.\n\nDecorative fountains.\n\nPhysics experiments." 
+                },
+                { 
+                    name: "Robot", 
+                    img1: "robot.jpg", 
+                    img2: "robot 2.webp",
+                    exp: "A robot is a programmable machine.\nIt performs tasks automatically.\nUsed in industries and homes.", 
+                    work: "Sensors collect data.\n\nMicrocontroller processes instructions.\n\nMotors perform actions.\n\nPower supply runs system.", 
+                    uses: "Manufacturing.\n\nMedical surgeries.\n\nHome cleaning.\n\nSpace exploration." 
+                },
+                { 
+                    name: "Eddy Current Brake Model", 
+                    img1: "eddy current brake.png", 
+                    img2: "eddy-current-braking 2.webp",
+                    exp: "This brake uses electromagnetic force.\nIt slows objects without contact.\nWorks on electromagnetic induction.", 
+                    work: "Magnet moves near metal disc.\n\nEddy currents produced.\n\nOpposite magnetic field created.\n\nMotion slows down.", 
+                    uses: "Trains.\n\nRoller coasters.\n\nElevators.\n\nIndustrial machines." 
+                },
+                { 
+                    name: "Working Model of SONAR", 
+                    img1: "working model of sonar.png", 
+                    img2: "working model of sonar 2.png",
+                    exp: "SONAR detects underwater objects.\nIt uses sound waves.\nCommon in submarines.", 
+                    work: "Sends sound pulse.\n\nSound hits object.\n\nEcho returns.\n\nDistance calculated using time.", 
+                    uses: "Navy submarines.\n\nFishing industry.\n\nOcean research.\n\nUnderwater mapping." 
+                },
+                { 
+                    name: "LPG Gas Detector", 
+                    img1: "LPG gas.jpg", 
+                    img2: "LPG Gas Detector 2.png",
+                    exp: "Detects leakage of LPG gas.\nPrevents fire accidents.\nUses gas sensors.", 
+                    work: "Gas sensor detects LPG.\n\nSends signal to controller.\n\nAlarm activated.\n\nCan trigger exhaust fan.", 
+                    uses: "Homes.\n\nHotels.\n\nRestaurants.\n\nGas storage areas." 
+                },
+                { 
+                    name: "Hydrogen Gas Fuel", 
+                    img1: "Hydrogen Gas Fuel.webp", 
+                    img2: "Hydrogen Gas Fuel 2.webp",
+                    exp: "Hydrogen fuel produces clean energy.\nIt produces only water as waste.\nUsed in fuel cells.", 
+                    work: "Hydrogen enters fuel cell.\n\nReacts with oxygen.\n\nProduces electricity.\n\nWater formed as byproduct.", 
+                    uses: "Fuel cell vehicles.\n\nPower generation.\n\nSpace missions.\n\nBackup power systems." 
+                },
+                { 
+                    name: "Vacuum Pump", 
+                    img1: "Vacuum Pump.jpg", 
+                    img2: "Vacuum Pump 2.jpg",
+                    exp: "A vacuum pump removes air from space.\nCreates low pressure area.\nUsed in industries.", 
+                    work: "Motor drives pump.\n\nAir sucked out.\n\nPressure reduces.\n\nVacuum created.", 
+                    uses: "Laboratories.\n\nPackaging industry.\n\nMedical equipment.\n\nRefrigeration systems." 
+                },
+                { 
+                    name: "Speaking Plant", 
+                    img1: "Speaking Plant.jpg", 
+                    img2: "Speaking Plant 2.jpg",
+                    exp: "This model shows plant response using sensors.\nIt converts signals into sound.\nDemonstrates plant sensitivity.", 
+                    work: "Sensor detects moisture/light.\n\nMicrocontroller processes signal.\n\nPre-recorded voice triggered.\n\nSpeaker outputs sound.", 
+                    uses: "Smart farming.\n\nEducational demo.\n\nGardening alerts.\n\nScience projects." 
+                },
+                { 
+                    name: "Carbon Purifier", 
+                    img1: "Carbon Purifier 2.jpg", 
+                    img2: "Carbon Purifier.png",
+                    exp: "Carbon purifier removes harmful gases.\nUses activated carbon filter.\nImproves air quality.", 
+                    work: "Air passes through carbon filter.\n\nPollutants get absorbed.\n\nClean air released.\n\nFan circulates air.", 
+                    uses: "Homes.\n\nHospitals.\n\nFactories.\n\nPollution control." 
+                },
+                { 
+                    name: "Oobleck Speed Breaker", 
+                    img1: "oobleck speed breaker.png", 
+                    img2: "oobleck speed break 2.jpg",
+                    exp: "Oobleck is a non-Newtonian fluid.\nIt becomes hard under pressure.\nUsed as smart speed breaker.", 
+                    work: "Vehicle moves slowly – remains soft.\n\nFast vehicle applies force.\n\nOobleck becomes solid.\n\nSlows down vehicle.", 
+                    uses: "Road safety.\n\nSchool zones.\n\nAccident prevention.\n\nSmart traffic systems." 
+                }
+            ],
+            '11-B': [
+                { 
+                    name: "Radar", 
+                    img1: "Radar image.webp", 
+                    img2: "radar img 2.webp",
+                    exp: "Radar stands for Radio Detection and Ranging.\nIt detects objects using radio waves.\nIt is used to find distance, speed, and direction.", 
+                    work: "Transmitter sends radio waves.\n\nWaves hit an object.\n\nReflected waves (echo) return.\n\nDistance calculated using time taken.", 
+                    uses: "Air traffic control.\n\nWeather forecasting.\n\nMilitary surveillance.\n\nShip navigation." 
+                },
+                { 
+                    name: "Free Energy Generator", 
+                    img1: "free energy generator.jpg", 
+                    img2: "free energy generator 2.jpg",
+                    exp: "A free energy generator is a concept of producing electricity without fuel.\nIt usually uses renewable energy sources.\nIt aims to reduce environmental pollution.", 
+                    work: "Uses renewable source (wind/solar/magnetic).\n\nMechanical motion rotates generator.\n\nMagnetic field induces current.\n\nElectricity is stored in battery.", 
+                    uses: "Rural electrification.\n\nBackup power systems.\n\nRenewable energy projects.\n\nScience demonstrations." 
+                },
+                { 
+                    name: "Chandrayaan-3", 
+                    img1: "Chandrayaan-3.jpg", 
+                    img2: "Chandrayaan-3 2.jpg",
+                    exp: "Chandrayaan-3 is India’s lunar exploration mission.\nIt was launched by Indian Space Research Organisation.\nIt successfully landed near the Moon’s south pole.", 
+                    work: "Launched using LVM3 rocket.\n\nOrbiter carries lander and rover.\n\nLander soft-lands on Moon.\n\nRover conducts experiments.", 
+                    uses: "Study Moon surface.\n\nSpace research development.\n\nTechnological advancement.\n\nNational scientific achievement." 
+                },
+                { 
+                    name: "Piezoelectric Model", 
+                    img1: "piezoelectric img.png", 
+                    img2: "piezoelectric img 2.png",
+                    exp: "This model generates electricity from pressure.\nIt uses piezoelectric materials.\nMechanical stress produces electric charge.", 
+                    work: "Pressure applied on crystal.\n\nCrystal structure deforms.\n\nElectric charge produced.\n\nElectricity stored or used.", 
+                    uses: "Footstep power generation.\n\nSensors.\n\nLighters.\n\nEnergy harvesting devices." 
+                },
+                { 
+                    name: "Hologram", 
+                    img1: "hologram img.jpg", 
+                    img2: "hologram 2.jpg",
+                    exp: "A hologram is a 3D image formed using light interference.\nIt creates a realistic visual effect.\nIt does not require special glasses.", 
+                    work: "Laser beam split into two.\n\nOne beam reflects from object.\n\nInterference pattern recorded.\n\n3D image reconstructed.", 
+                    uses: "Security features on currency.\n\nMedical imaging.\n\nEntertainment.\n\nEducation." 
+                },
+                { 
+                    name: "Air Purifier", 
+                    img1: "air purifier.jpg", 
+                    img2: "air purifier 2.avif",
+                    exp: "An air purifier cleans polluted air.\nIt removes dust, smoke, and germs.\nImproves indoor air quality.", 
+                    work: "Fan pulls air inside.\n\nHEPA/carbon filter traps particles.\n\nPollutants absorbed.\n\nClean air released.", 
+                    uses: "Homes.\n\nHospitals.\n\nOffices.\n\nPollution control." 
+                },
+                { 
+                    name: "Water Cycle", 
+                    img1: "water cycle.avif", 
+                    img2: "water cycle 2.avif",
+                    exp: "Water cycle is the movement of water in nature.\nIt includes evaporation, condensation, and precipitation.\nIt maintains Earth’s water balance.", 
+                    work: "Sun heats water (evaporation).\n\nVapor forms clouds (condensation).\n\nClouds release rain (precipitation).\n\nWater collects in rivers and oceans.", 
+                    uses: "Explains rainfall.\n\nAgriculture support.\n\nClimate study.\n\nEnvironmental education." 
+                },
+                { 
+                    name: "Laparoscope", 
+                    img1: "Laparoscope.jpg", 
+                    img2: "Laparoscope 2.jpg",
+                    exp: "A laparoscope is a medical instrument.\nUsed for minimally invasive surgery.\nIt has a camera and light.", 
+                    work: "Small cut made in body.\n\nLaparoscope inserted.\n\nCamera sends images to monitor.\n\nSurgeon performs surgery.", 
+                    uses: "Appendix surgery.\n\nGallbladder removal.\n\nGynecological surgery.\n\nReduced recovery time." 
+                },
+                { 
+                    name: "Pacemaker", 
+                    img1: "Pacemaker.jpg", 
+                    img2: "Pacemaker 2.jpg",
+                    exp: "A pacemaker controls heart rhythm.\nIt sends electrical impulses.\nUsed for heart patients.", 
+                    work: "Implanted near heart.\n\nDetects abnormal rhythm.\n\nSends electric pulse.\n\nRestores normal heartbeat.", 
+                    uses: "Treat arrhythmia.\n\nPrevent heart failure.\n\nImprove quality of life.\n\nEmergency heart control." 
+                },
+                { 
+                    name: "Plasma Gun", 
+                    img1: "Plasma Gun.jpg", 
+                    img2: "Plasma Gun 2.jpg",
+                    exp: "A plasma gun produces high-energy plasma.\nPlasma is the fourth state of matter.\nIt ionizes gas to create charged particles.", 
+                    work: "Gas supplied to chamber.\n\nHigh voltage applied.\n\nGas ionizes into plasma.\n\nPlasma beam released.", 
+                    uses: "Scientific research.\n\nPlasma cutting.\n\nSpace propulsion research.\n\nPhysics demonstrations." 
+                }
+            ],
+            '11-C': [
+                {
+                    name: "Start up india",
+                    img1: "Start up india.jpg",
+                    img2: "Start up india 2.jpg",
+                    exp: "Startup India is an initiative of the Government of India.\nIt aims to build a strong ecosystem for nurturing innovation and startups.\nIt encourages entrepreneurship and economic growth.",
+                    work: "Provides tax benefits to new businesses.\n\nSimplifies regulations and compliance.\n\nOffers funding support through government schemes.\n\nConnects startups with investors.",
+                    uses: "Supports new entrepreneurs.\n\nBoosts job creation.\n\nEncourages innovation in technology.\n\nStrengthens the Indian economy."
+                },
+                {
+                    name: "Supply chain management",
+                    img1: "Supply chain management.jpg",
+                    img2: "Supply chain management 2.jpg",
+                    exp: "Supply Chain Management (SCM) handles the flow of goods and services.\nIt involves moving and storing raw materials and finished products.\nIt ensures products reach consumers efficiently.",
+                    work: "Planning and procurement of resources.\n\nManufacturing and production processes.\n\nLogistics and transportation management.\n\nInformation systems for tracking.",
+                    uses: "Retail and e-commerce.\n\nManufacturing industries.\n\nFood and beverage distribution.\n\nPharmaceutical logistics."
+                },
+                {
+                    name: "Women entrepreneurship",
+                    img1: "Women entrepreneurship images.png",
+                    img2: "Women entrepreneurship images 2.jpg",
+                    exp: "Women entrepreneurship focuses on empowering women to start businesses.\nIt highlights the role of women in economic development.\nIt promotes leadership and financial independence for women.",
+                    work: "Provides access to microfinance and loans.\n\nOffers skill development and training.\n\nCreates networking opportunities.\n\nSupports work-life balance policies.",
+                    uses: "Economic empowerment of women.\n\nCommunity development.\n\nInnovation in local businesses.\n\nReduction of gender inequality in business."
+                },
+                {
+                    name: "Food Adulteration",
+                    img1: "Food Adulteration.png",
+                    img2: "Food Adulteration 2.jpg",
+                    exp: "Food Adulteration refers to the addition of unwanted substances to food items.\nThis project demonstrates detection methods.\nIt aims to raise awareness about food safety.",
+                    work: "Uses chemical tests to detect impurities.\n\nChecks for harmful additives in milk, oil, and spices.\n\nAnalyzes food samples in a lab setting.\n\nEducates consumers on reading labels.",
+                    uses: "Ensuring public health safety.\n\nQuality control in food industries.\n\nLegal enforcement against malpractice.\n\nEducational awareness for students."
+                }
+            ],
+            '11-A-1': [
+                { 
+                    name: "Robot", 
+                    img1: "robot 1.jpg", 
+                    img2: "robot 2.jpg",
+                    exp: "A robot is a programmable machine that performs tasks automatically.\nIt can be controlled by computer programs or remote control.\nRobots reduce human effort and increase accuracy.", 
+                    work: "Sensors collect information from surroundings.\n\nMicrocontroller processes the data.\n\nMotors and actuators perform movement.\n\nPower supply runs the entire system.", 
+                    uses: "Industrial automation.\n\nMedical surgeries.\n\nSpace exploration.\n\nHome cleaning (robot vacuum)." 
+                },
+                { 
+                    name: "RFIC Attendance System", 
+                    img1: "RFIC Attendance System.webp", 
+                    img2: "RFIC Attendance System 2.webp",
+                    exp: "RFIC (Radio Frequency Identification Card) Attendance System records attendance automatically.\nIt uses RFID technology to identify students or employees.\nIt reduces manual attendance errors.", 
+                    work: "RFID card contains unique ID.\n\nReader scans the card.\n\nMicrocontroller verifies ID.\n\nAttendance stored in database.", 
+                    uses: "Schools and colleges.\n\nOffices.\n\nFactories.\n\nSecure access control." 
+                },
+                { 
+                    name: "PH Rover", 
+                    img1: "PH Rover.jpg", 
+                    img2: "PH Rover 2.jpg",
+                    exp: "A pH rover is a robotic vehicle that measures soil or water pH level.\nIt helps in agriculture and environmental monitoring.\nIt improves soil health analysis.", 
+                    work: "Rover moves using motors.\n\npH sensor inserted into soil/water.\n\nSensor sends signal to controller.\n\nValue displayed on screen.", 
+                    uses: "Smart farming.\n\nSoil testing.\n\nWater quality checking.\n\nEnvironmental research." 
+                },
+                { 
+                    name: "Invisible Fencing", 
+                    img1: "Invisible Fencing images.png", 
+                    img2: "Invisible Fencing 2.webp",
+                    exp: "Invisible fencing is a wireless boundary system.\nIt keeps pets or animals within a safe area.\nNo physical fence is required.", 
+                    work: "Transmitter creates radio boundary.\n\nPet wears receiver collar.\n\nWarning beep when near boundary.\n\nMild signal if boundary crossed.", 
+                    uses: "Pet safety.\n\nFarm animal control.\n\nProperty protection.\n\nZoo management." 
+                },
+                { 
+                    name: "Car Speed Detector", 
+                    img1: "Car Speed Detector.jpg", 
+                    img2: "Car Speed Detector 2.jpg",
+                    exp: "A car speed detector measures vehicle speed.\nIt uses radar or sensors.\nHelps maintain traffic safety.", 
+                    work: "Radar sends signal to vehicle.\n\nSignal reflects back.\n\nFrequency shift measured.\n\nSpeed calculated using Doppler effect.", 
+                    uses: "Traffic police monitoring.\n\nAccident prevention.\n\nHighway safety.\n\nSpeed regulation." 
+                },
+                { 
+                    name: "Pulse Oximeter", 
+                    img1: "Pulse Oximeter.jpg", 
+                    img2: "Pulse Oximeter 2.jpg",
+                    exp: "A pulse oximeter measures oxygen level in blood.\nIt is a small medical device.\nIt also checks heart rate.", 
+                    work: "Clip placed on finger.\n\nRed and infrared light passes through blood.\n\nSensor detects light absorption.\n\nOxygen percentage displayed.", 
+                    uses: "COVID monitoring.\n\nHospital patient care.\n\nAsthma monitoring.\n\nFitness tracking." 
+                },
+                { 
+                    name: "Oobleck Speed Breaker", 
+                    img1: "oobleck speed breaker.png", 
+                    img2: "oobleck speed break 2.jpg",
+                    exp: "Oobleck is a non-Newtonian fluid.\nIt becomes hard when pressure is applied.\nUsed as smart speed breaker.", 
+                    work: "Slow vehicle – fluid remains soft.\n\nFast vehicle – high pressure applied.\n\nFluid becomes solid instantly.\n\nVehicle slows down.", 
+                    uses: "School zones.\n\nAccident prevention.\n\nSmart traffic control.\n\nRoad safety improvement." 
+                }
+            ]
+        };
+
+        // DOM Elements
+        const homeView = document.getElementById('home-view');
+        const programsView = document.getElementById('programs-view');
+        const detailView = document.getElementById('detail-view');
+        const navBtn = document.getElementById('nav-programs');
+        
+        let currentProject = null;
+
+        // Navigation Logic
+        navBtn.addEventListener('click', () => {
+            if (!navBtn.classList.contains('active')) {
+                homeView.classList.remove('active');
+                detailView.classList.remove('active');
+                programsView.classList.add('active');
+                navBtn.textContent = "Home";
+                navBtn.classList.add('active');
+                window.scrollTo(0,0);
+            } else {
+                programsView.classList.remove('active');
+                detailView.classList.remove('active');
+                homeView.classList.add('active');
+                navBtn.textContent = "Programs";
+                navBtn.classList.remove('active');
+                window.scrollTo(0,0);
+            }
+        });
+
+        // Standard Tabs Logic
+        function showStandard(standard, tabElement) {
+            document.querySelectorAll('.std-tab').forEach(t => t.classList.remove('active'));
+            tabElement.classList.add('active');
+
+            document.querySelectorAll('.list-container').forEach(l => l.classList.remove('active'));
+            document.getElementById(`list-${standard}`).classList.add('active');
+
+            const container = document.getElementById(`container-${standard}`);
+            if(container.innerHTML === '') {
+                renderList(standard, container);
+            }
+        }
+
+        // Render List Function
+        function renderList(standard, container) {
+            const projects = projectData[standard];
+            projects.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'program-card';
+                card.innerHTML = `
+                    <span class="program-name">${project.name}</span>
+                    <span class="arrow-icon">&#8594;</span>
+                `;
+                card.addEventListener('click', () => openDetail(project));
+                container.appendChild(card);
+            });
+        }
+
+        // Open Detail Page
+        function openDetail(project) {
+            programsView.classList.remove('active');
+            detailView.classList.add('active');
+            currentProject = project;
+
+            document.getElementById('detail-title').textContent = project.name;
+            document.getElementById('detail-exp').textContent = project.exp;
+            document.getElementById('detail-work').textContent = project.work;
+            document.getElementById('detail-uses').textContent = project.uses;
+
+            // Load specific placeholders for this project
+            document.getElementById('detail-img-1').src = project.img1;
+            document.getElementById('detail-img-2').src = project.img2;
+
+            window.scrollTo(0,0);
+        }
+
+        // Back Button Logic
+        function goBackToPrograms() {
+            detailView.classList.remove('active');
+            programsView.classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        // Initialize Default Tab
+        renderList('11-A', document.getElementById('container-11-A'));
+    </script>
+</body>
+</html>
